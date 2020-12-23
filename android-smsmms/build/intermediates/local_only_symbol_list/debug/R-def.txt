@@ -1,0 +1,16 @@
+R_DEF: Internal format may change without notice
+local
+drawable ic_forward_black_24dp
+drawable ic_stop_black_24dp
+drawable ic_translate_black_24dp
+string dl_failure_notification
+string download_later
+string invalid_destination
+string message_queued
+string no_apn
+string no_subject
+string service_message_not_found
+string service_network_problem
+string service_not_activated
+string unknown_sender
+xml mms_config

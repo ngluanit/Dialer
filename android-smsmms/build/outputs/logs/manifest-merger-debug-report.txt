@@ -1,0 +1,51 @@
+-- Merging decision tree log ---
+manifest
+ADDED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml:2:1-15:12
+INJECTED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml:2:1-15:12
+INJECTED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml:2:1-15:12
+INJECTED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml:2:1-15:12
+INJECTED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml:2:1-15:12
+INJECTED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml:2:1-15:12
+INJECTED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml:2:1-15:12
+	package
+		ADDED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml:3:5-47
+		INJECTED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml
+		INJECTED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml
+		ADDED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml:2:1-15:12
+		INJECTED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml
+		ADDED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml:2:1-15:12
+		INJECTED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml:4:5-63
+application
+ADDED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml:6:5-14:19
+provider#com.klinker.android.send_message.MmsFileProvider
+ADDED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml:8:9-12:46
+	android:grantUriPermissions
+		ADDED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml:11:19-53
+	android:enabled
+		ADDED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml:10:19-41
+	android:authorities
+		ADDED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml:9:19-73
+	android:exported
+		ADDED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml:12:19-43
+	android:name
+		ADDED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml:8:19-50
+uses-sdk
+INJECTED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml
+INJECTED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml
+INJECTED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml
+INJECTED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml
+		ADDED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml
+		INJECTED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml
+		ADDED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml
+		INJECTED from E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml

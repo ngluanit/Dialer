@@ -1,0 +1,29 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<!--
+3  ~ Copyright (C) 2017 Moez Bhatti <moez.bhatti@gmail.com>
+4  ~
+5  ~ This file is part of QKSMS.
+6  ~
+7  ~ QKSMS is free software: you can redistribute it and/or modify
+8  ~ it under the terms of the GNU General Public License as published by
+9  ~ the Free Software Foundation, either version 3 of the License, or
+10  ~ (at your option) any later version.
+11  ~
+12  ~ QKSMS is distributed in the hope that it will be useful,
+13  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+14  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+15  ~ GNU General Public License for more details.
+16  ~
+17  ~ You should have received a copy of the GNU General Public License
+18  ~ along with QKSMS.  If not, see <http://www.gnu.org/licenses/>.
+19-->
+20<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+21    package="com.moez.QKSMS.common" >
+22
+23    <uses-sdk
+24        android:minSdkVersion="21"
+24-->E:\Bravo\qksms\common\src\main\AndroidManifest.xml
+25        android:targetSdkVersion="29" />
+25-->E:\Bravo\qksms\common\src\main\AndroidManifest.xml
+26
+27</manifest>

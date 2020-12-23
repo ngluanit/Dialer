@@ -1,0 +1,29 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.klinker.android.send_message"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="25" />
+9-->E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml
+10
+11    <application>
+11-->E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml:6:5-14:19
+12        <provider
+12-->E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml:8:9-12:46
+13            android:name="com.klinker.android.send_message.MmsFileProvider"
+13-->E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml:8:19-50
+14            android:authorities="${applicationId}.MmsFileProvider"
+14-->E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml:9:19-73
+15            android:enabled="true"
+15-->E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml:10:19-41
+16            android:exported="false"
+16-->E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml:12:19-43
+17            android:grantUriPermissions="true" />
+17-->E:\Bravo\qksms\android-smsmms\src\main\AndroidManifest.xml:11:19-53
+18    </application>
+19
+20</manifest>

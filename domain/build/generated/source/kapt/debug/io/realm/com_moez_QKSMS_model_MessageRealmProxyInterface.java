@@ -1,0 +1,55 @@
+package io.realm;
+
+
+public interface com_moez_QKSMS_model_MessageRealmProxyInterface {
+    public long realmGet$id();
+    public void realmSet$id(long value);
+    public long realmGet$threadId();
+    public void realmSet$threadId(long value);
+    public long realmGet$contentId();
+    public void realmSet$contentId(long value);
+    public String realmGet$address();
+    public void realmSet$address(String value);
+    public int realmGet$boxId();
+    public void realmSet$boxId(int value);
+    public String realmGet$type();
+    public void realmSet$type(String value);
+    public long realmGet$date();
+    public void realmSet$date(long value);
+    public long realmGet$dateSent();
+    public void realmSet$dateSent(long value);
+    public boolean realmGet$seen();
+    public void realmSet$seen(boolean value);
+    public boolean realmGet$read();
+    public void realmSet$read(boolean value);
+    public boolean realmGet$locked();
+    public void realmSet$locked(boolean value);
+    public int realmGet$subId();
+    public void realmSet$subId(int value);
+    public String realmGet$body();
+    public void realmSet$body(String value);
+    public int realmGet$errorCode();
+    public void realmSet$errorCode(int value);
+    public int realmGet$deliveryStatus();
+    public void realmSet$deliveryStatus(int value);
+    public String realmGet$attachmentTypeString();
+    public void realmSet$attachmentTypeString(String value);
+    public String realmGet$mmsDeliveryStatusString();
+    public void realmSet$mmsDeliveryStatusString(String value);
+    public String realmGet$readReportString();
+    public void realmSet$readReportString(String value);
+    public int realmGet$errorType();
+    public void realmSet$errorType(int value);
+    public int realmGet$messageSize();
+    public void realmSet$messageSize(int value);
+    public int realmGet$messageType();
+    public void realmSet$messageType(int value);
+    public int realmGet$mmsStatus();
+    public void realmSet$mmsStatus(int value);
+    public String realmGet$subject();
+    public void realmSet$subject(String value);
+    public String realmGet$textContentType();
+    public void realmSet$textContentType(String value);
+    public RealmList<com.moez.QKSMS.model.MmsPart> realmGet$parts();
+    public void realmSet$parts(RealmList<com.moez.QKSMS.model.MmsPart> value);
+}
