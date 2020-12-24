@@ -1,0 +1,8 @@
+com/bumptech/glide/gifencoder/NeuQuant.java
+ com.bumptech.glide.gifencoder.NeuQuant
+com/moez/QKSMS/common/BuildConfig.java
+ com.moez.QKSMS.common.BuildConfig
+com/bumptech/glide/gifencoder/AnimatedGifEncoder.java
+ com.bumptech.glide.gifencoder.AnimatedGifEncoder
+com/bumptech/glide/gifencoder/LZWEncoder.java
+ com.bumptech.glide.gifencoder.LZWEncoder

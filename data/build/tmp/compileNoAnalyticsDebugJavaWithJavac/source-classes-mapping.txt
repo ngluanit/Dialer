@@ -1,0 +1,126 @@
+com/moez/QKSMS/blocking/QksmsBlockingClient_Factory.java
+ com.moez.QKSMS.blocking.QksmsBlockingClient_Factory
+com/moez/QKSMS/migration/QkRealmMigration_Factory.java
+ com.moez.QKSMS.migration.QkRealmMigration_Factory
+com/moez/QKSMS/receiver/BootReceiver_MembersInjector.java
+ com.moez.QKSMS.receiver.BootReceiver_MembersInjector
+com/moez/QKSMS/util/PhoneNumberUtils_Factory.java
+ com.moez.QKSMS.util.PhoneNumberUtils_Factory
+com/moez/QKSMS/receiver/DeleteMessagesReceiver_MembersInjector.java
+ com.moez.QKSMS.receiver.DeleteMessagesReceiver_MembersInjector
+com/moez/QKSMS/receiver/MarkArchivedReceiver_MembersInjector.java
+ com.moez.QKSMS.receiver.MarkArchivedReceiver_MembersInjector
+com/moez/QKSMS/receiver/BlockThreadReceiver_MembersInjector.java
+ com.moez.QKSMS.receiver.BlockThreadReceiver_MembersInjector
+com/moez/QKSMS/util/GlideOptions.java
+ com.moez.QKSMS.util.GlideOptions
+com/moez/QKSMS/manager/WidgetManagerImpl_Factory.java
+ com.moez.QKSMS.manager.WidgetManagerImpl_Factory
+com/moez/QKSMS/repository/SyncRepositoryImpl_Factory.java
+ com.moez.QKSMS.repository.SyncRepositoryImpl_Factory
+com/moez/QKSMS/manager/AnalyticsManagerImpl_Factory.java
+ com.moez.QKSMS.manager.AnalyticsManagerImpl_Factory
+com/moez/QKSMS/receiver/MmsSentReceiver_MembersInjector.java
+ com.moez.QKSMS.receiver.MmsSentReceiver_MembersInjector
+com/moez/QKSMS/filter/ContactGroupFilter_Factory.java
+ com.moez.QKSMS.filter.ContactGroupFilter_Factory
+com/moez/QKSMS/util/GlideRequests.java
+ com.moez.QKSMS.util.GlideRequests
+com/moez/QKSMS/filter/PhoneNumberFilter_Factory.java
+ com.moez.QKSMS.filter.PhoneNumberFilter_Factory
+com/moez/QKSMS/service/HeadlessSmsSendService_MembersInjector.java
+ com.moez.QKSMS.service.HeadlessSmsSendService_MembersInjector
+com/moez/QKSMS/repository/BlockingRepositoryImpl_Factory.java
+ com.moez.QKSMS.repository.BlockingRepositoryImpl_Factory
+com/moez/QKSMS/mapper/CursorToContactGroupMemberImpl_Factory.java
+ com.moez.QKSMS.mapper.CursorToContactGroupMemberImpl_Factory
+com/moez/QKSMS/mapper/CursorToRecipientImpl_Factory.java
+ com.moez.QKSMS.mapper.CursorToRecipientImpl_Factory
+com/moez/QKSMS/receiver/SendScheduledMessageReceiver_MembersInjector.java
+ com.moez.QKSMS.receiver.SendScheduledMessageReceiver_MembersInjector
+com/moez/QKSMS/receiver/DefaultSmsChangedReceiver_MembersInjector.java
+ com.moez.QKSMS.receiver.DefaultSmsChangedReceiver_MembersInjector
+com/moez/QKSMS/receiver/RemoteMessagingReceiver_MembersInjector.java
+ com.moez.QKSMS.receiver.RemoteMessagingReceiver_MembersInjector
+com/moez/QKSMS/receiver/SendSmsReceiver_MembersInjector.java
+ com.moez.QKSMS.receiver.SendSmsReceiver_MembersInjector
+com/moez/QKSMS/mapper/CursorToMessageImpl_Factory.java
+ com.moez.QKSMS.mapper.CursorToMessageImpl_Factory
+com/moez/QKSMS/util/GlideApp.java
+ com.moez.QKSMS.util.GlideApp
+com/moez/QKSMS/listener/ContactAddedListenerImpl_Factory.java
+ com.moez.QKSMS.listener.ContactAddedListenerImpl_Factory
+com/moez/QKSMS/migration/QkMigration_Factory.java
+ com.moez.QKSMS.migration.QkMigration_Factory
+com/moez/QKSMS/receiver/SmsProviderChangedReceiver_MembersInjector.java
+ com.moez.QKSMS.receiver.SmsProviderChangedReceiver_MembersInjector
+com/moez/QKSMS/repository/ConversationRepositoryImpl_Factory.java
+ com.moez.QKSMS.repository.ConversationRepositoryImpl_Factory
+com/moez/QKSMS/receiver/NightModeReceiver_MembersInjector.java
+ com.moez.QKSMS.receiver.NightModeReceiver_MembersInjector
+com/moez/QKSMS/blocking/CallControlBlockingClient_Factory.java
+ com.moez.QKSMS.blocking.CallControlBlockingClient_Factory
+com/moez/QKSMS/filter/ConversationFilter_Factory.java
+ com.moez.QKSMS.filter.ConversationFilter_Factory
+com/bumptech/glide/GeneratedRequestManagerFactory.java
+ com.bumptech.glide.GeneratedRequestManagerFactory
+com/bumptech/glide/GeneratedAppGlideModuleImpl.java
+ com.bumptech.glide.GeneratedAppGlideModuleImpl
+com/moez/QKSMS/manager/AlarmManagerImpl_Factory.java
+ com.moez.QKSMS.manager.AlarmManagerImpl_Factory
+com/moez/QKSMS/filter/ContactFilter_Factory.java
+ com.moez.QKSMS.filter.ContactFilter_Factory
+com/moez/QKSMS/manager/KeyManagerImpl_Factory.java
+ com.moez.QKSMS.manager.KeyManagerImpl_Factory
+com/moez/QKSMS/receiver/SmsSentReceiver_MembersInjector.java
+ com.moez.QKSMS.receiver.SmsSentReceiver_MembersInjector
+com/moez/QKSMS/receiver/MmsReceivedReceiver_MembersInjector.java
+ com.moez.QKSMS.receiver.MmsReceivedReceiver_MembersInjector
+com/moez/QKSMS/mapper/CursorToContactGroupImpl_Factory.java
+ com.moez.QKSMS.mapper.CursorToContactGroupImpl_Factory
+com/moez/QKSMS/repository/BackupRepositoryImpl_Factory.java
+ com.moez.QKSMS.repository.BackupRepositoryImpl_Factory
+com/moez/QKSMS/manager/ActiveConversationManagerImpl_Factory.java
+ com.moez.QKSMS.manager.ActiveConversationManagerImpl_Factory
+com/moez/QKSMS/mapper/RatingManagerImpl_Factory.java
+ com.moez.QKSMS.mapper.RatingManagerImpl_Factory
+com/moez/QKSMS/filter/RecipientFilter_Factory.java
+ com.moez.QKSMS.filter.RecipientFilter_Factory
+com/moez/QKSMS/receiver/SmsReceiver_MembersInjector.java
+ com.moez.QKSMS.receiver.SmsReceiver_MembersInjector
+com/moez/QKSMS/compat/SubscriptionManagerCompat_Factory.java
+ com.moez.QKSMS.compat.SubscriptionManagerCompat_Factory
+com/moez/QKSMS/util/GlideRequest.java
+ com.moez.QKSMS.util.GlideRequest
+com/moez/QKSMS/mapper/CursorToContactImpl_Factory.java
+ com.moez.QKSMS.mapper.CursorToContactImpl_Factory
+com/moez/QKSMS/manager/ReferralManagerImpl_Factory.java
+ com.moez.QKSMS.manager.ReferralManagerImpl_Factory
+com/moez/QKSMS/mapper/CursorToPartImpl_Factory.java
+ com.moez.QKSMS.mapper.CursorToPartImpl_Factory
+com/moez/QKSMS/manager/ChangelogManagerImpl_Factory.java
+ com.moez.QKSMS.manager.ChangelogManagerImpl_Factory
+com/moez/QKSMS/repository/MessageRepositoryImpl_Factory.java
+ com.moez.QKSMS.repository.MessageRepositoryImpl_Factory
+com/moez/QKSMS/blocking/BlockingManager_Factory.java
+ com.moez.QKSMS.blocking.BlockingManager_Factory
+com/moez/QKSMS/blocking/ShouldIAnswerBlockingClient_Factory.java
+ com.moez.QKSMS.blocking.ShouldIAnswerBlockingClient_Factory
+com/moez/QKSMS/receiver/MarkReadReceiver_MembersInjector.java
+ com.moez.QKSMS.receiver.MarkReadReceiver_MembersInjector
+com/moez/QKSMS/util/NightModeManager_Factory.java
+ com.moez.QKSMS.util.NightModeManager_Factory
+com/moez/QKSMS/receiver/MarkSeenReceiver_MembersInjector.java
+ com.moez.QKSMS.receiver.MarkSeenReceiver_MembersInjector
+com/moez/QKSMS/receiver/MmsUpdatedReceiver_MembersInjector.java
+ com.moez.QKSMS.receiver.MmsUpdatedReceiver_MembersInjector
+com/moez/QKSMS/mapper/CursorToConversationImpl_Factory.java
+ com.moez.QKSMS.mapper.CursorToConversationImpl_Factory
+com/moez/QKSMS/receiver/SmsDeliveredReceiver_MembersInjector.java
+ com.moez.QKSMS.receiver.SmsDeliveredReceiver_MembersInjector
+com/moez/QKSMS/repository/ScheduledMessageRepositoryImpl_Factory.java
+ com.moez.QKSMS.repository.ScheduledMessageRepositoryImpl_Factory
+com/moez/QKSMS/data/BuildConfig.java
+ com.moez.QKSMS.data.BuildConfig
+com/moez/QKSMS/repository/ContactRepositoryImpl_Factory.java
+ com.moez.QKSMS.repository.ContactRepositoryImpl_Factory

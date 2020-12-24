@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "artifactType": {
+    "type": "PACKAGED_MANIFESTS",
+    "kind": "Directory"
+  },
+  "applicationId": "com.moez.QKSMS.data",
+  "variantName": "noAnalyticsDebug",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "outputFile": "../../library_manifest/noAnalyticsDebug/AndroidManifest.xml"
+    }
+  ]
+}

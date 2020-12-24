@@ -30,9 +30,10 @@ import android.os.Bundle;
 import android.os.Trace;
 import android.provider.CallLog.Calls;
 import android.speech.RecognizerIntent;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.appcompat.app.ActionBar;
+import androidx.viewpager.widget.ViewPager;
+
 import android.telecom.PhoneAccount;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -975,6 +976,7 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
 
     @Override
     public void onNewIntent(Intent newIntent) {
+        super.onNewIntent(newIntent);
         setIntent(newIntent);
 
         mStateSaved = false;
@@ -1327,7 +1329,6 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
         exitSearchUi();
     }
 
-    @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         int tabIndex = mListsFragment.getCurrentTabIndex();
 

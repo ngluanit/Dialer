@@ -22,8 +22,8 @@
 22
 23    <uses-sdk
 24        android:minSdkVersion="21"
-24-->E:\Bravo\qksms\common\src\main\AndroidManifest.xml
+24-->E:\Bravo\DialerCall\common\src\main\AndroidManifest.xml
 25        android:targetSdkVersion="29" />
-25-->E:\Bravo\qksms\common\src\main\AndroidManifest.xml
+25-->E:\Bravo\DialerCall\common\src\main\AndroidManifest.xml
 26
 27</manifest>

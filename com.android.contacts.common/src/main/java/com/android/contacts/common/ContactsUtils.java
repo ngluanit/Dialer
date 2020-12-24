@@ -20,12 +20,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.ContactsContract.CommonDataKinds.Im;
-import android.support.annotation.IntDef;
-import android.support.v4.os.BuildCompat;
+import androidx.annotation.IntDef;
+import androidx.core.os.BuildCompat;
 import android.provider.ContactsContract.DisplayPhoto;
-import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.util.Pair;
 
@@ -34,7 +32,6 @@ import com.android.contacts.common.model.dataitem.ImDataItem;
 import com.android.contacts.common.testing.NeededForTesting;
 import com.android.contacts.common.compat.ContactsCompat;
 import com.android.contacts.common.compat.DirectoryCompat;
-import com.android.contacts.common.compat.SdkSelectionUtils;
 import com.android.contacts.common.model.AccountTypeManager;
 
 import java.lang.annotation.Retention;
@@ -111,7 +108,7 @@ public class ContactsUtils {
      * dialer is running inside Work Profile.
      */
     @Retention(RetentionPolicy.SOURCE)
-    @IntDef({USER_TYPE_CURRENT, USER_TYPE_WORK})
+    //@IntDef({USER_TYPE_CURRENT, USER_TYPE_WORK})
     public @interface UserType {}
 
     /**

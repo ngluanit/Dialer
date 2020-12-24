@@ -1065,7 +1065,7 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
             editor.commit();
 
             // Notify content observers that smart dial database has been updated.
-            mContext.getContentResolver().notifyChange(SMART_DIAL_UPDATED_URI, null, false);
+//            mContext.getContentResolver().notifyChange(SMART_DIAL_UPDATED_URI, null, false);
         }
     }
 
