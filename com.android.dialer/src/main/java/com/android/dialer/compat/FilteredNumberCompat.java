@@ -49,6 +49,7 @@ import com.android.dialer.filterednumber.BlockedNumbersMigrator;
 import com.android.dialer.filterednumber.BlockedNumbersSettingsActivity;
 import com.android.dialer.filterednumber.MigrateBlockedNumbersDialogFragment;
 import com.android.dialerbind.ObjectFactory;
+import com.moez.QKSMS.common.QKApplication;
 
 import java.util.ArrayList;
 import java.util.List;

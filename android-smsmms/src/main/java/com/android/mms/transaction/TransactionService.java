@@ -239,13 +239,16 @@ public class TransactionService extends Service implements Observer {
     private boolean isNetworkAvailable() {
         if (mConnMgr == null) {
             return false;
-        } else if (Utils.isMmsOverWifiEnabled(this)) {
-            NetworkInfo niWF = mConnMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-            return (niWF == null ? false : niWF.isConnected());
-        } else {
-            NetworkInfo ni = mConnMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE_MMS);
-            return (ni == null ? false : ni.isAvailable());
+        }else {
+            return true;
         }
+//        else if (Utils.isMmsOverWifiEnabled(this)) {
+//          //  NetworkInfo niWF = mConnMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+//          //  return (niWF == null ? false : niWF.isConnected());
+//        } else {
+//            NetworkInfo ni = mConnMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE_MMS);
+//            return (ni == null ? false : ni.isAvailable());
+//        }
     }
 
     public void onNewIntent(Intent intent, int serviceId) {
@@ -486,7 +489,7 @@ public class TransactionService extends Service implements Observer {
         // Create a new wake lock if we haven't made one yet.
         if (mWakeLock == null) {
             PowerManager pm = (PowerManager)getSystemService(Context.POWER_SERVICE);
-            mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "MMS Connectivity");
+          //  mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "MMS Connectivity");
             mWakeLock.setReferenceCounted(false);
         }
     }
@@ -512,23 +515,23 @@ public class TransactionService extends Service implements Observer {
         createWakeLock();
 
         if (Utils.isMmsOverWifiEnabled(this)) {
-            NetworkInfo niWF = mConnMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-            if ((niWF != null) && (niWF.isConnected())) {
-                Timber.v("beginMmsConnectivity: Wifi active");
-                return 0;
-            }
+          //  NetworkInfo niWF = mConnMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+//            if ((niWF != null) && (niWF.isConnected())) {
+//                Timber.v("beginMmsConnectivity: Wifi active");
+//                return 0;
+//            }
         }
 
-        int result = mConnMgr.startUsingNetworkFeature(ConnectivityManager.TYPE_MOBILE, "enableMMS");
+        //int result = mConnMgr.startUsingNetworkFeature(ConnectivityManager.TYPE_MOBILE, "enableMMS");
 
-        Timber.v("beginMmsConnectivity: result=" + result);
-
-        switch (result) {
-            case 0:
-            case 1:
-                acquireWakeLock();
-                return result;
-        }
+//        Timber.v("beginMmsConnectivity: result=" + result);
+//
+//        switch (result) {
+//            case 0:
+//            case 1:
+//                acquireWakeLock();
+//                return result;
+//        }
 
         throw new IOException("Cannot establish MMS connectivity");
     }
@@ -540,9 +543,9 @@ public class TransactionService extends Service implements Observer {
             // cancel timer for renewal of lease
             mServiceHandler.removeMessages(EVENT_CONTINUE_MMS_CONNECTIVITY);
             if (mConnMgr != null && Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                mConnMgr.stopUsingNetworkFeature(
-                        ConnectivityManager.TYPE_MOBILE,
-                        "enableMMS");
+//                mConnMgr.stopUsingNetworkFeature(
+//                        ConnectivityManager.TYPE_MOBILE,
+//                        "enableMMS");
             }
         } finally {
             releaseWakeLock();
@@ -885,7 +888,7 @@ public class TransactionService extends Service implements Observer {
             NetworkInfo mmsNetworkInfo = null;
 
             if (mConnMgr != null && Utils.isMobileDataEnabled(context)) {
-                mmsNetworkInfo = mConnMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE_MMS);
+             //   mmsNetworkInfo = mConnMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE_MMS);
             } else {
                 Timber.v("mConnMgr is null, bail");
             }

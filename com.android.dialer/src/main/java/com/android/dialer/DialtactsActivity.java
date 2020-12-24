@@ -95,6 +95,7 @@ import com.android.dialerbind.ObjectFactory;
 import com.android.phone.common.animation.AnimUtils;
 import com.android.phone.common.animation.AnimationListenerAdapter;
 import com.google.common.annotations.VisibleForTesting;
+import com.moez.QKSMS.feature.main.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -689,8 +690,10 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
             Logger.logScreenView(ScreenEvent.IMPORT_EXPORT_CONTACTS, this);
             return true;
         } else if (resId == R.id.menu_clear_frequents) {
-            ClearFrequentsDialog.show(getFragmentManager());
-            Logger.logScreenView(ScreenEvent.CLEAR_FREQUENTS, this);
+//            ClearFrequentsDialog.show(getFragmentManager());
+//            Logger.logScreenView(ScreenEvent.CLEAR_FREQUENTS, this);
+            final Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
             return true;
         } else if (resId == R.id.menu_call_settings) {
             handleMenuSettings();
