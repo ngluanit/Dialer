@@ -30,6 +30,7 @@ import android.os.Bundle;
 import android.os.Trace;
 import android.provider.CallLog.Calls;
 import android.speech.RecognizerIntent;
+
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.appcompat.app.ActionBar;
 import androidx.viewpager.widget.ViewPager;
@@ -96,9 +97,19 @@ import com.android.phone.common.animation.AnimUtils;
 import com.android.phone.common.animation.AnimationListenerAdapter;
 import com.google.common.annotations.VisibleForTesting;
 import com.moez.QKSMS.feature.main.MainActivity;
+import com.moez.QKSMS.feature.main.MainState;
+import com.moez.QKSMS.feature.main.MainView;
+import com.moez.QKSMS.feature.main.NavItem;
+import com.moez.QKSMS.manager.ChangelogManager;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observable;
+import kotlin.Pair;
+import kotlin.Unit;
 
 /**
  * The dialer tab's title is 'phone', a more common name (see strings.xml).
@@ -115,7 +126,7 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
         OnPhoneNumberPickerActionListener,
         PopupMenu.OnMenuItemClickListener,
         ViewPager.OnPageChangeListener,
-        ActionBarController.ActivityUi {
+        ActionBarController.ActivityUi, MainView {
     private static final String TAG = "DialtactsActivity";
 
     public static final boolean DEBUG = false;
@@ -247,6 +258,158 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
      * {@link #onResume()} to populate the search box.
      */
     private String mVoiceSearchQuery;
+
+    @NotNull
+    @Override
+    public Observable<Intent> getOnNewIntentIntent() {
+        return null;
+    }
+
+    @NotNull
+    @Override
+    public Observable<Boolean> getActivityResumedIntent() {
+        return null;
+    }
+
+    @NotNull
+    @Override
+    public Observable<CharSequence> getQueryChangedIntent() {
+        return null;
+    }
+
+    @NotNull
+    @Override
+    public Observable<Unit> getComposeIntent() {
+        return null;
+    }
+
+    @NotNull
+    @Override
+    public Observable<Boolean> getDrawerOpenIntent() {
+        return null;
+    }
+
+    @NotNull
+    @Override
+    public Observable<?> getHomeIntent() {
+        return null;
+    }
+
+    @NotNull
+    @Override
+    public Observable<NavItem> getNavigationIntent() {
+        return null;
+    }
+
+    @NotNull
+    @Override
+    public Observable<Integer> getOptionsItemIntent() {
+        return null;
+    }
+
+    @NotNull
+    @Override
+    public Observable<?> getPlusBannerIntent() {
+        return null;
+    }
+
+    @NotNull
+    @Override
+    public Observable<?> getDismissRatingIntent() {
+        return null;
+    }
+
+    @NotNull
+    @Override
+    public Observable<?> getRateIntent() {
+        return null;
+    }
+
+    @NotNull
+    @Override
+    public Observable<List<Long>> getConversationsSelectedIntent() {
+        return null;
+    }
+
+    @NotNull
+    @Override
+    public Observable<List<Long>> getConfirmDeleteIntent() {
+        return null;
+    }
+
+    @NotNull
+    @Override
+    public Observable<Pair<Long, Integer>> getSwipeConversationIntent() {
+        return null;
+    }
+
+    @NotNull
+    @Override
+    public Observable<?> getChangelogMoreIntent() {
+        return null;
+    }
+
+    @NotNull
+    @Override
+    public Observable<Unit> getUndoArchiveIntent() {
+        return null;
+    }
+
+    @NotNull
+    @Override
+    public Observable<Unit> getSnackbarButtonIntent() {
+        return null;
+    }
+
+    @Override
+    public void requestDefaultSms() {
+
+    }
+
+    @Override
+    public void requestPermissions() {
+
+    }
+
+    @Override
+    public void clearSearch() {
+
+    }
+
+    @Override
+    public void clearSelection() {
+
+    }
+
+    @Override
+    public void themeChanged() {
+
+    }
+
+    @Override
+    public void showBlockingDialog(@NotNull List<Long> conversations, boolean block) {
+
+    }
+
+    @Override
+    public void showDeleteDialog(@NotNull List<Long> conversations) {
+
+    }
+
+    @Override
+    public void showChangelog(@NotNull ChangelogManager.Changelog changelog) {
+
+    }
+
+    @Override
+    public void showArchivedSnackbar() {
+
+    }
+
+    @Override
+    public void render(MainState mainState) {
+
+    }
 
     protected class OptionsPopupMenu extends PopupMenu {
         public OptionsPopupMenu(Context context, View anchor) {
@@ -737,6 +900,7 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
     /**
      * Initiates a fragment transaction to show the dialpad fragment. Animations and other visual
      * updates are handled by a callback which is invoked after the dialpad fragment is shown.
+     *
      * @see #onDialpadShown
      */
     private void showDialpadFragment(boolean animate) {
@@ -790,6 +954,7 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
     /**
      * Initiates animations and other visual updates to hide the dialpad. The fragment is hidden in
      * a callback after the hide animation ends.
+     *
      * @see #commitDialpadFragmentHide
      */
     public void hideDialpadFragment(boolean animate, boolean clearDialpad) {
@@ -899,7 +1064,7 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
         return false;
     }
 
-    protected int getSearchBoxHint () {
+    protected int getSearchBoxHint() {
         return R.string.dialer_hint_find_contact;
     }
 
@@ -988,7 +1153,9 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
         invalidateOptionsMenu();
     }
 
-    /** Returns true if the given intent contains a phone number to populate the dialer with */
+    /**
+     * Returns true if the given intent contains a phone number to populate the dialer with
+     */
     private boolean isDialIntent(Intent intent) {
         final String action = intent.getAction();
         if (Intent.ACTION_DIAL.equals(action) || ACTION_TOUCH_DIALER.equals(action)) {
@@ -1268,7 +1435,8 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
     }
 
     @Override
-    public void onDroppedOnRemove() {}
+    public void onDroppedOnRemove() {
+    }
 
     /**
      * Allows the SpeedDialFragment to attach the drag controller to mRemoveViewContainer

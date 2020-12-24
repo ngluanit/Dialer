@@ -29,7 +29,6 @@ import androidx.core.provider.FontRequest
 import androidx.emoji.text.EmojiCompat
 import androidx.emoji.text.FontRequestEmojiCompatConfig
 import com.android.contacts.common.extensions.ExtensionsFactory
-import com.android.contacts.common.testing.NeededForTesting
 import com.android.dialer.DialerApplication
 import com.android.dialer.R
 import com.android.dialer.database.FilteredNumberAsyncQueryHandler
@@ -61,21 +60,44 @@ class QKApplication : Application(), HasActivityInjector, HasBroadcastReceiverIn
      * Inject these so that they are forced to initialize
      */
     @Suppress("unused")
-    @Inject lateinit var analyticsManager: AnalyticsManager
-    @Suppress("unused")
-    @Inject lateinit var qkMigration: QkMigration
+    @Inject
+    lateinit var analyticsManager: AnalyticsManager
 
-    @Inject lateinit var dispatchingActivityInjector: DispatchingAndroidInjector<Activity>
-    @Inject lateinit var dispatchingBroadcastReceiverInjector: DispatchingAndroidInjector<BroadcastReceiver>
-    @Inject lateinit var dispatchingServiceInjector: DispatchingAndroidInjector<Service>
-    @Inject lateinit var fileLoggingTree: FileLoggingTree
-    @Inject lateinit var nightModeManager: NightModeManager
-    @Inject lateinit var realmMigration: QkRealmMigration
-    @Inject lateinit var referralManager: ReferralManager
+    @Suppress("unused")
+    @Inject
+    lateinit var qkMigration: QkMigration
+
+    @Inject
+    lateinit var dispatchingActivityInjector: DispatchingAndroidInjector<Activity>
+
+    @Inject
+    lateinit var dispatchingBroadcastReceiverInjector: DispatchingAndroidInjector<BroadcastReceiver>
+
+    @Inject
+    lateinit var dispatchingServiceInjector: DispatchingAndroidInjector<Service>
+
+    @Inject
+    lateinit var fileLoggingTree: FileLoggingTree
+
+    @Inject
+    lateinit var nightModeManager: NightModeManager
+
+    @Inject
+    lateinit var realmMigration: QkRealmMigration
+
+    @Inject
+    lateinit var referralManager: ReferralManager
     public val TAG = "DialerApplication"
 
-    public val sContext: Context? = null
+    companion object {
+        var sContext: Context? = null
+        fun getContext(): Context? {
+            return sContext
+        }
+    }
+
     override fun onCreate() {
+        sContext = this
         super.onCreate()
         Trace.beginSection(TAG + " onCreate")
         Trace.beginSection(TAG + " ExtensionsFactory initialization")
@@ -130,9 +152,8 @@ class QKApplication : Application(), HasActivityInjector, HasBroadcastReceiverIn
     override fun serviceInjector(): AndroidInjector<Service> {
         return dispatchingServiceInjector
     }
-    fun getContext(): Context? {
-        return sContext
-    }
+
+
 
 
 }

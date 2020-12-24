@@ -218,7 +218,6 @@ class MainActivity : QkThemedActivity(), MainView {
         binding.toolbar.menu.findItem(R.id.read)?.isVisible = markRead && selectedConversations != 0
         binding.toolbar.menu.findItem(R.id.unread)?.isVisible = !markRead && selectedConversations != 0
         binding.toolbar.menu.findItem(R.id.block)?.isVisible = selectedConversations != 0
-
         listOf(binding.drawer.plusBadge1, binding.drawer.plusBadge2).forEach { badge ->
             badge.isVisible = drawerBadgesExperiment.variant && !state.upgraded
         }

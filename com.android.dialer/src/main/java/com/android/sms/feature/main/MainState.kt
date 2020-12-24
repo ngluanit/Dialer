@@ -35,6 +35,7 @@ data class MainState(
     val contactPermission: Boolean = true
 )
 
+
 sealed class MainPage
 
 data class Inbox(

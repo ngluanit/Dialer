@@ -146,7 +146,7 @@ public class FilteredNumberCompat {
      * {@link android.provider.BlockedNumberContract} blocking, {@code false} otherwise.
      */
     public static boolean hasMigratedToNewBlocking() {
-        return PreferenceManager.getDefaultSharedPreferences(DialerApplication.getContext())
+        return PreferenceManager.getDefaultSharedPreferences(QKApplication.Companion.getContext())
                 .getBoolean(HAS_MIGRATED_TO_NEW_BLOCKING_KEY, false);
     }
 
@@ -159,7 +159,7 @@ public class FilteredNumberCompat {
     @NeededForTesting
     public static void setHasMigratedToNewBlocking(boolean hasMigrated) {
         PreferenceManager.getDefaultSharedPreferences(
-                MoreObjects.firstNonNull(contextForTest, DialerApplication.getContext())).edit()
+                MoreObjects.firstNonNull(contextForTest, QKApplication.Companion.getContext())).edit()
                 .putBoolean(HAS_MIGRATED_TO_NEW_BLOCKING_KEY, hasMigrated).apply();
     }
 
