@@ -20,12 +20,9 @@ package com.moez.QKSMS.feature.conversations
 
 import android.content.Context
 import android.graphics.Typeface
-import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.text.bold
 import androidx.core.text.buildSpannedString
 import androidx.core.text.color
-import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.android.dialer.R
 import com.android.dialer.databinding.ConversationListItemBinding
@@ -126,5 +123,10 @@ class ConversationsAdapter @Inject constructor(
 
     override fun getItemViewType(position: Int): Int {
         return if (getItem(position)?.unread == false) 0 else 1
+    }
+
+    override fun getItemCount(): Int {
+        println("mzmzmzmzmz"+data!!.size)
+        return data!!.size
     }
 }

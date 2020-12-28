@@ -18,6 +18,7 @@
  */
 package com.moez.QKSMS.injection.android
 
+import com.android.dialer.DialtactsActivity
 import com.moez.QKSMS.feature.backup.BackupActivity
 import com.moez.QKSMS.feature.blocking.BlockingActivity
 import com.moez.QKSMS.feature.compose.ComposeActivity
@@ -47,7 +48,7 @@ abstract class ActivityBuilderModule {
 
     @ActivityScope
     @ContributesAndroidInjector(modules = [MainActivityModule::class])
-    abstract fun bindMainActivity(): MainActivity
+    abstract fun bindMainActivity(): DialtactsActivity
 
     @ActivityScope
     @ContributesAndroidInjector(modules = [PlusActivityModule::class])

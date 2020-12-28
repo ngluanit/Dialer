@@ -173,4 +173,13 @@
     <dimen name="call_type_icon_size">12dp</dimen>
 
     <dimen name="tab_unread_count_margin_left">0dp</dimen>
+    <dimen name="_110sdp">110dp</dimen>
+    <dimen name="_30sdp">30dp</dimen>
+    <dimen name="_15sdp">15dp</dimen>
+    <dimen name="_10sdp">10dp</dimen>
+    <dimen name="_17sdp">17dp</dimen>
+    <dimen name="_3sdp">3dp</dimen>
+    <dimen name="_5sdp">5dp</dimen>
+    <dimen name="_80sdp">80dp</dimen>
+    <dimen name="_60sdp">60dp</dimen>
 </resources>

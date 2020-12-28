@@ -226,7 +226,12 @@
         <item name="android:actionOverflowButtonStyle">@style/DialtactsActionBarOverflowWhite</item>
         <item name="actionOverflowButtonStyle">@style/DialtactsActionBarOverflowWhite</item>
     </style>
-
+    <style name="ThemeFullScreen" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
     <!-- Hide the actionbar title during the activity preview -->
     <style name="DialtactsActivityTheme" parent="DialtactsTheme">
         <!-- Styles that require AppCompat compatibility, remember to update both sets -->

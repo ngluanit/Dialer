@@ -15,19 +15,24 @@
  */
 package com.android.dialer
 
+import android.Manifest
 import android.app.Fragment
 import android.app.FragmentTransaction
+import android.app.role.RoleManager
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Trace
 import android.provider.CallLog
+import android.provider.Settings
 import android.speech.RecognizerIntent
 import android.telecom.PhoneAccount
+import android.telecom.TelecomManager
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -40,7 +45,11 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.app.ActivityCompat
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
+import com.android.contacts.common.dialog.ClearFrequentsDialog
 import com.android.contacts.common.interactions.ImportExportDialogFragment
 import com.android.contacts.common.interactions.TouchPointManager
 import com.android.contacts.common.list.OnPhoneNumberPickerActionListener
@@ -49,6 +58,7 @@ import com.android.contacts.common.widget.FloatingActionButtonController
 import com.android.dialer.calllog.CallLogActivity
 import com.android.dialer.calllog.CallLogFragment
 import com.android.dialer.database.DialerDatabaseHelper
+import com.android.dialer.databinding.DialtactsActivityBinding
 import com.android.dialer.dialpad.DialpadFragment
 import com.android.dialer.dialpad.DialpadFragment.OnDialpadQueryChangedListener
 import com.android.dialer.dialpad.SmartDialNameMatcher
@@ -58,11 +68,8 @@ import com.android.dialer.list.*
 import com.android.dialer.logging.Logger
 import com.android.dialer.logging.ScreenEvent
 import com.android.dialer.settings.DialerSettingsActivity
-import com.android.dialer.util.Assert
-import com.android.dialer.util.DialerUtils
-import com.android.dialer.util.IntentUtil
+import com.android.dialer.util.*
 import com.android.dialer.util.IntentUtil.CallIntentBuilder
-import com.android.dialer.util.TelecomUtil
 import com.android.dialer.voicemail.VoicemailArchiveActivity
 import com.android.dialer.widget.ActionBarController
 import com.android.dialer.widget.ActionBarController.ActivityUi
@@ -72,14 +79,17 @@ import com.android.dialerbind.ObjectFactory
 import com.android.phone.common.animation.AnimUtils
 import com.android.phone.common.animation.AnimationListenerAdapter
 import com.google.common.annotations.VisibleForTesting
-import com.moez.QKSMS.feature.main.MainActivity
-import com.moez.QKSMS.feature.main.MainState
-import com.moez.QKSMS.feature.main.MainView
-import com.moez.QKSMS.feature.main.NavItem
+import com.moez.QKSMS.common.Navigator
+import com.moez.QKSMS.common.util.extensions.viewBinding
+import com.moez.QKSMS.feature.conversations.ConversationItemTouchCallback
+import com.moez.QKSMS.feature.conversations.ConversationsAdapter
+import com.moez.QKSMS.feature.main.*
 import com.moez.QKSMS.manager.ChangelogManager
+import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
+import javax.inject.Inject
 
 /**
  * The dialer tab's title is 'phone', a more common name (see strings.xml).
@@ -174,6 +184,8 @@ class DialtactsActivity : TransactionSafeActivity(), View.OnClickListener, OnDia
     private var mFloatingActionButtonController: FloatingActionButtonController? = null
     private var mActionBarHeight = 0
     private var mPreviouslySelectedTabIndex = 0
+    @Inject
+    lateinit var conversationsAdapter: ConversationsAdapter
 
     /**
      * The text returned from a voice search query.  Set in [.onActivityResult] and used in
@@ -181,40 +193,39 @@ class DialtactsActivity : TransactionSafeActivity(), View.OnClickListener, OnDia
      */
     private var mVoiceSearchQuery: String? = null
     override val onNewIntentIntent: Subject<Intent> = PublishSubject.create()
-    override val activityResumedIntent:Subject<Boolean> = PublishSubject.create()
-    override val queryChangedIntent: Observable<CharSequence>
-        get() = null
-    override val composeIntent: Observable<Unit>
-        get() = null
-    override val drawerOpenIntent: Observable<Boolean>
-        get() = null
-    override val homeIntent: Observable<*>
-        get() = null
-    override val navigationIntent: Observable<NavItem>
-        get() = null
-    override val optionsItemIntent: Observable<Int>
-        get() = null
-    override val plusBannerIntent: Observable<*>
-        get() = null
-    override val dismissRatingIntent: Observable<*>
-        get() = null
-    override val rateIntent: Observable<*>
-        get() = null
-    override val conversationsSelectedIntent: Observable<List<Long>>
-        get() = null
-    override val confirmDeleteIntent: Observable<List<Long>>
-        get() = null
-    override val swipeConversationIntent: Observable<Pair<Long, Int>>
-        get() = null
-    override val changelogMoreIntent: Observable<*>
-        get() = null
-    override val undoArchiveIntent: Observable<Unit>
-        get() = null
-    override val snackbarButtonIntent: Observable<Unit>
-        get() = null
+    override val activityResumedIntent: Subject<Boolean> = PublishSubject.create()
+    override val queryChangedIntent: Observable<CharSequence> = PublishSubject.create()
+    override val composeIntent: Observable<Unit> = PublishSubject.create()
+    override val drawerOpenIntent: Observable<Boolean> = PublishSubject.create()
+    override val homeIntent: Subject<Unit> = PublishSubject.create()
+    override val navigationIntent: Observable<NavItem> = PublishSubject.create()
+    override val optionsItemIntent: Subject<Int> = PublishSubject.create()
+    override val plusBannerIntent: Subject<Int> = PublishSubject.create()
+    override val dismissRatingIntent: Subject<Int> = PublishSubject.create()
+    override val rateIntent: Subject<Int> = PublishSubject.create()
+    override val conversationsSelectedIntent: Observable<List<Long>> = PublishSubject.create()
+    override val confirmDeleteIntent: Subject<List<Long>> = PublishSubject.create()
+    override val swipeConversationIntent: Observable<Pair<Long, Int>> = PublishSubject.create()
+    override val changelogMoreIntent: Subject<Int> = PublishSubject.create()
+    override val undoArchiveIntent: Subject<Unit> = PublishSubject.create()
+    override val snackbarButtonIntent: Observable<Unit> = PublishSubject.create()
+    private val binding by viewBinding(DialtactsActivityBinding::inflate)
 
-    override fun requestDefaultSms() {}
-    override fun requestPermissions() {}
+    @Inject
+    lateinit var itemTouchCallback: ConversationItemTouchCallback
+    @Inject
+    lateinit var navigator: Navigator
+    override fun requestDefaultSms() {
+       // navigator.showDefaultSmsDialog(this)
+    }
+
+    override fun requestPermissions() {
+        ActivityCompat.requestPermissions(this, arrayOf(
+                Manifest.permission.READ_SMS,
+                Manifest.permission.SEND_SMS,
+                Manifest.permission.READ_CONTACTS), 0)
+    }
+
     override fun clearSearch() {}
     override fun clearSelection() {}
     override fun themeChanged() {}
@@ -222,7 +233,11 @@ class DialtactsActivity : TransactionSafeActivity(), View.OnClickListener, OnDia
     override fun showDeleteDialog(conversations: List<Long>) {}
     override fun showChangelog(changelog: ChangelogManager.Changelog) {}
     override fun showArchivedSnackbar() {}
-    override fun render(mainState: MainState) {}
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory)[MainViewModel::class.java] }
+    private val REQUEST_DEFAULT_DIALER = 123
+
     protected inner class OptionsPopupMenu(context: Context?, anchor: View?) : PopupMenu(context, anchor, Gravity.END) {
         override fun show() {
             val hasContactsPermission = PermissionsUtil.hasContactsPermissions(this@DialtactsActivity)
@@ -253,6 +268,33 @@ class DialtactsActivity : TransactionSafeActivity(), View.OnClickListener, OnDia
     /**
      * Listener used to send search queries to the phone search fragment.
      */
+    fun checkDefaultDialer() {
+        lateinit var intent: Intent
+        lateinit var roleManager: RoleManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Build.MODEL == "Vivo") {
+                Toast.makeText(this, "Go to Settings -> More settings -> Permission management(Applications) -> Default app settings to change the default apps.", Toast.LENGTH_SHORT).show()
+                startActivityForResult(Intent(Settings.ACTION_SETTINGS), 0)
+            } else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    roleManager = applicationContext.getSystemService(RoleManager::class.java)
+                    if (roleManager.isRoleAvailable(RoleManager.ROLE_DIALER)) {
+                        if (roleManager.isRoleHeld(RoleManager.ROLE_DIALER)) {
+                        } else {
+                            val roleRequestIntent = roleManager.createRequestRoleIntent(
+                                    RoleManager.ROLE_DIALER)
+                            startActivityForResult(roleRequestIntent, 2)
+                        }
+                    }
+                } else {
+                    intent = Intent(TelecomManager.ACTION_CHANGE_DEFAULT_DIALER)
+                            .putExtra(TelecomManager.EXTRA_CHANGE_DEFAULT_DIALER_PACKAGE_NAME, packageName)
+                    startActivityForResult(intent, REQUEST_DEFAULT_DIALER)
+                }
+            }
+        }
+    }
+
     private val mPhoneSearchQueryTextListener: TextWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
@@ -294,9 +336,15 @@ class DialtactsActivity : TransactionSafeActivity(), View.OnClickListener, OnDia
      */
     private val mSearchViewOnClickListener = View.OnClickListener {
         if (!isInSearchUi) {
+            println("mmmmmmsmmsms"+mListsFragment!!.currentTabIndex)
             mActionBarController!!.onSearchBoxTapped()
-            enterSearchUi(false /* smartDialSearch */, mSearchView!!.text.toString(),
-                    true /* animate */)
+            if (mListsFragment!!.currentTabIndex==ListsFragment.TAB_INDEX_VOICEMAIL||mListsFragment!!.currentTabIndex==ListsFragment.TAB_INDEX_VOICEMAIL){
+
+            }else{
+                enterSearchUi(false /* smartDialSearch */, mSearchView!!.text.toString(),
+                        true /* animate */)
+            }
+
         }
     }
 
@@ -325,17 +373,27 @@ class DialtactsActivity : TransactionSafeActivity(), View.OnClickListener, OnDia
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Trace.beginSection(TAG + " onCreate")
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
+        setContentView(binding.root)
+        viewModel.bindView(this)
 
+        itemTouchCallback.adapter = conversationsAdapter
         // add by geniusgithub
         val hasStartPermissionActivity = ForceRequestPermissionsActivity.startPermissionActivity(this)
-
+//        val telecomManager = getSystemService(Context.TELECOM_SERVICE) as TelecomManager
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            if (telecomManager.defaultDialerPackage == packageName) {
+//                startActivity(Intent(this,ForceRequestPermissionsActivity::class.java))
+//            } else {
+//                startActivity(Intent(this,ForceRequestPermissionsActivity::class.java))
+//            }
+//        }
         // add by geniusgithub
         mFirstLaunch = true
         val resources = resources
         mActionBarHeight = resources.getDimensionPixelSize(R.dimen.action_bar_height_large)
         Trace.beginSection(TAG + " setContentView")
-        setContentView(R.layout.dialtacts_activity)
         Trace.endSection()
         window.setBackgroundDrawable(null)
         Trace.beginSection(TAG + " setup Views")
@@ -377,7 +435,7 @@ class DialtactsActivity : TransactionSafeActivity(), View.OnClickListener, OnDia
         val optionsMenuButton = searchEditTextLayout.findViewById<View>(R.id.dialtacts_options_menu_button) as ImageButton
         optionsMenuButton.setOnClickListener(this)
         mOverflowMenu = buildOptionsMenu(searchEditTextLayout)
-        optionsMenuButton.setOnTouchListener(mOverflowMenu.getDragToOpenListener())
+        optionsMenuButton.setOnTouchListener((mOverflowMenu as OptionsPopupMenu).getDragToOpenListener())
 
         // Add the favorites fragment but only if savedInstanceState is null. Otherwise the
         // fragment manager is responsible for recreating it.
@@ -403,10 +461,10 @@ class DialtactsActivity : TransactionSafeActivity(), View.OnClickListener, OnDia
             mSlideIn = AnimationUtils.loadAnimation(this, R.anim.dialpad_slide_in_bottom)
             mSlideOut = AnimationUtils.loadAnimation(this, R.anim.dialpad_slide_out_bottom)
         }
-        mSlideIn.setInterpolator(AnimUtils.EASE_IN)
-        mSlideOut.setInterpolator(AnimUtils.EASE_OUT)
-        mSlideIn.setAnimationListener(mSlideInListener)
-        mSlideOut.setAnimationListener(mSlideOutListener)
+        mSlideIn?.setInterpolator(AnimUtils.EASE_IN)
+        mSlideOut?.setInterpolator(AnimUtils.EASE_OUT)
+        mSlideIn?.setAnimationListener(mSlideInListener)
+        mSlideOut?.setAnimationListener(mSlideOutListener)
         mParentLayout = findViewById<View>(R.id.dialtacts_mainlayout) as CoordinatorLayout
         mParentLayout!!.setOnDragListener(LayoutOnDragListener())
         floatingActionButtonContainer.viewTreeObserver.addOnGlobalLayoutListener(
@@ -429,6 +487,20 @@ class DialtactsActivity : TransactionSafeActivity(), View.OnClickListener, OnDia
         SmartDialPrefix.initializeNanpSettings(this)
         Trace.endSection()
         Trace.endSection()
+    }
+
+    override fun render(state: MainState) {
+        when (state.page) {
+            is Inbox -> {
+                Constant.getModelList(state.page.data)
+                println("zzmzmzmz" + state.page.data?.size)
+                if (Constant.getModelList(state.page.data).size > 0) {
+                    println(",zmzmzmzzm" + Constant.conversationList.size)
+                }
+            }
+
+        }
+
     }
 
     override fun onResume() {
@@ -501,9 +573,9 @@ class DialtactsActivity : TransactionSafeActivity(), View.OnClickListener, OnDia
             hideDialpadAndSearchUi()
             mClearSearchOnPause = false
         }
-        if (mSlideOut!!.hasStarted() && !mSlideOut!!.hasEnded()) {
-            commitDialpadFragmentHide()
-        }
+//        if (mSlideOut!!.hasStarted() && !mSlideOut!!.hasEnded()) {
+//            commitDialpadFragmentHide()
+//        }
         StatisticsUtil.onPause(this)
         super.onPause()
     }
@@ -556,7 +628,10 @@ class DialtactsActivity : TransactionSafeActivity(), View.OnClickListener, OnDia
                         this,
                         IntentUtil.getNewContactIntent(),
                         R.string.add_contact_not_available)
-            } else if (!mIsDialpadShown) {
+            } else if(mListsFragment!!.currentTabIndex
+                    == ListsFragment.TAB_INDEX_VOICEMAIL && !mInRegularSearch){
+                navigator.showCompose()
+            }else if (!mIsDialpadShown) {
                 mInCallDialpadUp = false
                 showDialpadFragment(true)
             }
@@ -589,7 +664,8 @@ class DialtactsActivity : TransactionSafeActivity(), View.OnClickListener, OnDia
                     this,
                     IntentUtil.getNewContactIntent(),
                     R.string.add_contact_not_available)
-        } else if (resId == R.id.menu_import_export) { // We hard-code the "contactsAreAvailable" argument because doing it properly would
+        } else if (resId == R.id.menu_import_export) {
+            // We hard-code the "contactsAreAvailable" argument because doing it properly would
             // involve querying a {@link ProviderStatusLoader}, which we don't want to do right
             // now in Dialtacts for (potential) performance reasons. Compare with how it is
             // done in {@link PeopleActivity}.
@@ -603,10 +679,9 @@ class DialtactsActivity : TransactionSafeActivity(), View.OnClickListener, OnDia
             Logger.logScreenView(ScreenEvent.IMPORT_EXPORT_CONTACTS, this)
             return true
         } else if (resId == R.id.menu_clear_frequents) {
-//            ClearFrequentsDialog.show(getFragmentManager());
-//            Logger.logScreenView(ScreenEvent.CLEAR_FREQUENTS, this);
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            ClearFrequentsDialog.show(getFragmentManager());
+            Logger.logScreenView(ScreenEvent.CLEAR_FREQUENTS, this);
+
             return true
         } else if (resId == R.id.menu_call_settings) {
             handleMenuSettings()
@@ -634,6 +709,8 @@ class DialtactsActivity : TransactionSafeActivity(), View.OnClickListener, OnDia
             } else {
                 Log.e(TAG, "Voice search failed")
             }
+        } else if (requestCode == REQUEST_DEFAULT_DIALER) {
+            navigator.showDefaultSmsDialog(this)
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
@@ -804,7 +881,7 @@ class DialtactsActivity : TransactionSafeActivity(), View.OnClickListener, OnDia
      */
     private fun setSearchBoxHint() {
         val searchEditTextLayout = supportActionBar
-                .getCustomView().findViewById<View>(R.id.search_view_container) as SearchEditTextLayout
+                ?.getCustomView()?.findViewById<View>(R.id.search_view_container) as SearchEditTextLayout
         (searchEditTextLayout.findViewById<View>(R.id.search_box_start_search) as TextView)
                 .setHint(searchBoxHint)
     }
@@ -820,6 +897,7 @@ class DialtactsActivity : TransactionSafeActivity(), View.OnClickListener, OnDia
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        getMenuInflater().inflate(R.menu.main, menu);
         if (mPendingSearchViewQuery != null) {
             mSearchView!!.setText(mPendingSearchViewQuery)
             mPendingSearchViewQuery = null
@@ -922,7 +1000,7 @@ class DialtactsActivity : TransactionSafeActivity(), View.OnClickListener, OnDia
         mInDialpadSearch = smartDialSearch
         mInRegularSearch = !smartDialSearch
         mFloatingActionButtonController!!.scaleOut()
-        var fragment: SearchFragment? = fragmentManager.findFragmentByTag(tag) as SearchFragment
+        var fragment: SearchFragment? = fragmentManager.findFragmentByTag(tag) as? SearchFragment
         if (animate) {
             transaction.setCustomAnimations(android.R.animator.fade_in, 0)
         } else {
@@ -1208,7 +1286,11 @@ class DialtactsActivity : TransactionSafeActivity(), View.OnClickListener, OnDia
             mFloatingActionButtonController!!.changeIcon(
                     resources.getDrawable(R.drawable.ic_person_add_24dp),
                     resources.getString(R.string.search_shortcut_create_new_contact))
-        } else {
+        }else if (tabIndex==ListsFragment.TAB_INDEX_VOICEMAIL){
+            mFloatingActionButtonController!!.changeIcon(
+                    resources.getDrawable(R.drawable.ic_person_add_24dp),
+                    "Create new Sms")
+        } else{
             mFloatingActionButtonController!!.changeIcon(
                     resources.getDrawable(R.drawable.fab_ic_dial),
                     resources.getString(R.string.action_menu_dialpad_button))

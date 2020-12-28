@@ -22,16 +22,14 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Trace;
 import android.preference.PreferenceManager;
-
-import androidx.legacy.app.FragmentPagerAdapter;
-
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.legacy.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.android.contacts.common.list.ViewPagerTabs;
 import com.android.dialer.DialtactsActivity;
@@ -39,7 +37,6 @@ import com.android.dialer.R;
 import com.android.dialer.calllog.CallLogFragment;
 import com.android.dialer.calllog.CallLogNotificationsHelper;
 import com.android.dialer.calllog.CallLogQueryHandler;
-import com.android.dialer.calllog.VisualVoicemailCallLogFragment;
 import com.android.dialer.logging.Logger;
 import com.android.dialer.logging.ScreenEvent;
 import com.android.dialer.util.DialerUtils;
@@ -47,6 +44,7 @@ import com.android.dialer.voicemail.VisualVoicemailEnabledChecker;
 import com.android.dialer.voicemail.VoicemailStatusHelper;
 import com.android.dialer.voicemail.VoicemailStatusHelperImpl;
 import com.android.dialer.widget.ActionBarController;
+import com.android.sms.SmsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +68,7 @@ public class ListsFragment extends Fragment
     public static final int TAB_INDEX_ALL_CONTACTS = 2;
     public static final int TAB_INDEX_VOICEMAIL = 3;
 
-    public static final int TAB_COUNT_DEFAULT = 3;
+    public static final int TAB_COUNT_DEFAULT = 4;
     public static final int TAB_COUNT_WITH_VOICEMAIL = 4;
 
     public interface HostInterface {
@@ -87,7 +85,7 @@ public class ListsFragment extends Fragment
     private SpeedDialFragment mSpeedDialFragment;
     private CallLogFragment mHistoryFragment;
     private AllContactsFragment mAllContactsFragment;
-    private CallLogFragment mVoicemailFragment;
+    private SmsFragment mVoicemailFragment;
 
     private SharedPreferences mPrefs;
     private boolean mHasActiveVoicemailProvider;
@@ -112,7 +110,7 @@ public class ListsFragment extends Fragment
 
         public ViewPagerAdapter(FragmentManager fm) {
             super(fm);
-            for (int i = 0; i < TAB_COUNT_WITH_VOICEMAIL; i++) {
+            for (int i = 0; i <= TAB_COUNT_WITH_VOICEMAIL; i++) {
                 mFragments.add(null);
             }
         }
@@ -135,7 +133,7 @@ public class ListsFragment extends Fragment
                     mAllContactsFragment = new AllContactsFragment();
                     return mAllContactsFragment;
                 case TAB_INDEX_VOICEMAIL:
-                    mVoicemailFragment = new VisualVoicemailCallLogFragment();
+                    mVoicemailFragment = new SmsFragment();
                     return mVoicemailFragment;
             }
             throw new IllegalStateException("No fragment at position " + position);
@@ -155,14 +153,14 @@ public class ListsFragment extends Fragment
             } else if (fragment instanceof AllContactsFragment) {
                 mAllContactsFragment = (AllContactsFragment) fragment;
             } else if (fragment instanceof CallLogFragment && position == TAB_INDEX_VOICEMAIL) {
-                mVoicemailFragment = (CallLogFragment) fragment;
+                mVoicemailFragment = (SmsFragment) fragment;
             }
             mFragments.set(position, fragment);
             return fragment;
         }
 
         /**
-         * When {@link PagerAdapter#notifyDataSetChanged} is called,
+
          * this method is called on all pages to determine whether they need to be recreated.
          * When the voicemail tab is removed, the view needs to be recreated by returning
          * POSITION_NONE. If notifyDataSetChanged is called for some other reason, the voicemail

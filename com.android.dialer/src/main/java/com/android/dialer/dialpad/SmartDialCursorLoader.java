@@ -125,8 +125,8 @@ public class SmartDialCursorLoader extends AsyncTaskLoader<Cursor> {
 
         if (mObserver == null) {
             mObserver = new ForceLoadContentObserver();
-            mContext.getContentResolver().registerContentObserver(
-                    DialerDatabaseHelper.SMART_DIAL_UPDATED_URI, true, mObserver);
+//            mContext.getContentResolver().registerContentObserver(
+//                    DialerDatabaseHelper.SMART_DIAL_UPDATED_URI, true, mObserver);
         }
 
         if (isStarted()) {

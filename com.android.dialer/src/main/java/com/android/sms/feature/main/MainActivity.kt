@@ -25,7 +25,6 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
@@ -45,14 +44,7 @@ import com.jakewharton.rxbinding2.widget.textChanges
 import com.moez.QKSMS.common.Navigator
 import com.moez.QKSMS.common.androidxcompat.drawerOpen
 import com.moez.QKSMS.common.base.QkThemedActivity
-import com.moez.QKSMS.common.util.extensions.autoScrollToStart
-import com.moez.QKSMS.common.util.extensions.dismissKeyboard
-import com.moez.QKSMS.common.util.extensions.resolveThemeColor
-import com.moez.QKSMS.common.util.extensions.scrapViews
-import com.moez.QKSMS.common.util.extensions.setBackgroundTint
-import com.moez.QKSMS.common.util.extensions.setTint
-import com.moez.QKSMS.common.util.extensions.setVisible
-import com.moez.QKSMS.common.util.extensions.viewBinding
+import com.moez.QKSMS.common.util.extensions.*
 import com.moez.QKSMS.feature.blocking.BlockingDialog
 import com.moez.QKSMS.feature.changelog.ChangelogDialog
 import com.moez.QKSMS.feature.conversations.ConversationItemTouchCallback
@@ -234,6 +226,7 @@ class MainActivity : QkThemedActivity(), MainView {
                 title = getString(R.string.main_title_selected, state.page.selected)
                 if (binding.recyclerView.adapter !== conversationsAdapter) binding.recyclerView.adapter = conversationsAdapter
                 conversationsAdapter.updateData(state.page.data)
+                println("mmzzmzmzm"+state.page.data?.size+"///"+conversationsAdapter.data?.size)
                 itemTouchHelper.attachToRecyclerView(binding.recyclerView)
                 binding.empty.setText(R.string.inbox_empty_text)
             }

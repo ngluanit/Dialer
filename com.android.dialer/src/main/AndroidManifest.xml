@@ -72,17 +72,18 @@
         android:supportsRtl="true"
         tools:ignore="AllowBackup"
         tools:replace="android:label">
-        <activity android:name="com.android.sms.SmsFragment"></activity>
-        <!-- android:usesCleartextTraffic="false"> remove by genius -->
+        <activity android:name="com.android.service.CallingActivity"
+            android:theme="@style/ThemeFullScreen"/>
+        <activity android:name="com.android.sms.SmsFragment" /> <!-- android:usesCleartextTraffic="false"> remove by genius -->
         <meta-data
             android:name="com.google.android.backup.api_key"
             android:value="AEdPqrEAAAAIBXgtCEKQ6W0PXVnW-ZVia2KmlV2AxsTw3GjAeQ" />
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="57a0a07167e58ef73a001dd6"></meta-data>
+            android:value="57a0a07167e58ef73a001dd6" />
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="Umeng"></meta-data>
+            android:value="Umeng" />
         <!--
  The entrance point for Phone UI.
              stateAlwaysHidden is set to suppress keyboard show up on
@@ -170,44 +171,91 @@
             <meta-data
                 android:name="com.android.keyguard.layout"
                 android:resource="@layout/keyguard_preview" />
-        </activity> <!-- Backwards compatibility: "Call log" from ICS -->
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.SEND" />
+                <action android:name="android.intent.action.SENDTO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="sms" />
+                <data android:scheme="smsto" />
+                <data android:scheme="mms" />
+                <data android:scheme="mmsto" />
+                <data android:scheme="sms_body" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="image/*" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="image/*" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="text/x-vcard" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.service.chooser.chooser_target_service"
+                android:value=".common.util.QkChooserTargetService" />
+        </activity> <!-- Backwards compatibility: "Phone" from Gingerbread and earlier -->
         <activity-alias
-            android:name=".activities.CallLogActivity"
+            android:name=".DialtactsActivity"
             android:exported="true"
             android:targetActivity=".DialtactsActivity" /> <!-- Backwards compatibility: "Call log" from Gingerbread and earlier -->
         <activity-alias
             android:name=".RecentCallsListActivity"
             android:exported="true"
-            android:targetActivity=".DialtactsActivity" /> <!-- Backwards compatibility: "Phone" from Gingerbread and earlier -->
+            android:targetActivity=".DialtactsActivity" /> <!-- Backwards compatibility: "Call log" from ICS -->
         <activity-alias
-            android:name=".DialtactsActivity"
+            android:name=".activities.CallLogActivity"
             android:exported="true"
             android:targetActivity=".DialtactsActivity" /> <!-- add by geniusgithub -->
         <activity
             android:name=".ForceRequestPermissionsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/android:Theme.Material.Light"></activity>
+            android:theme="@style/android:Theme.Material.Light" />
         <activity
             android:name=".settings.DialerSettingsActivity"
             android:exported="false"
             android:label="@string/dialer_settings_label"
             android:parentActivityName=".DialtactsActivity"
-            android:theme="@style/SettingsStyle"></activity>
+            android:theme="@style/SettingsStyle" />
         <activity
             android:name=".filterednumber.BlockedNumbersSettingsActivity"
             android:exported="false"
             android:label="@string/manage_blocked_numbers_label"
             android:parentActivityName=".settings.DialerSettingsActivity"
-            android:theme="@style/ManageBlockedNumbersStyle"></activity>
+            android:theme="@style/ManageBlockedNumbersStyle" />
         <activity
             android:name=".voicemail.VoicemailArchiveActivity"
             android:label="@string/voicemail_archive_activity_title"
-            android:theme="@style/DialtactsThemeWithoutActionBarOverlay"></activity>
+            android:theme="@style/DialtactsThemeWithoutActionBarOverlay" />
         <activity
             android:name=".calllog.CallLogActivity"
             android:icon="@mipmap/ic_launcher_phone"
             android:label="@string/call_log_activity_title"
-            android:theme="@style/DialtactsThemeWithoutActionBarOverlay"></activity>
+            android:theme="@style/DialtactsThemeWithoutActionBarOverlay" />
         <activity
             android:name=".CallDetailActivity"
             android:icon="@mipmap/ic_launcher_phone"
@@ -250,11 +298,11 @@
         <activity
             android:name="com.android.contacts.common.vcard.ImportVCardActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/BackgroundOnlyTheme"></activity>
+            android:theme="@style/BackgroundOnlyTheme" />
         <activity
             android:name="com.android.contacts.common.vcard.NfcImportVCardActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/BackgroundOnlyTheme"></activity>
+            android:theme="@style/BackgroundOnlyTheme" />
         <activity
             android:name="com.android.contacts.common.vcard.CancelActivity"
             android:theme="@style/BackgroundOnlyTheme" />
@@ -316,28 +364,7 @@
              fullScreenIntent of a notification (for incoming calls.)
         -->
         <!--
-     <activity android:name="com.android.incallui.InCallActivity"
-                  android:theme="@style/Theme.InCallScreen"
-                  android:label="@string/phoneAppLabel"
-                  android:excludeFromRecents="true"
-                  android:launchMode="singleInstance"
-                  android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|keyboardHidden"
-                  android:exported="false"
-                  android:screenOrientation="nosensor"
-                  android:directBootAware="true"
-                  android:resizeableActivity="true">
-        </activity>
 
-        <service android:name="com.android.incallui.InCallServiceImpl"
-                 android:permission="android.permission.BIND_INCALL_SERVICE"
-                 android:directBootAware="true" >
-            <meta-data android:name="android.telecom.IN_CALL_SERVICE_UI" android:value="true" />
-            <meta-data android:name="android.telecom.IN_CALL_SERVICE_RINGING"
-                android:value="false"/>
-            <intent-filter>
-                <action android:name="android.telecom.InCallService"/>
-            </intent-filter>
-        </service>
 
         &lt;!&ndash; BroadcastReceiver for receiving Intents from Notification mechanism. &ndash;&gt;
         <receiver android:name="com.android.incallui.NotificationBroadcastReceiver"
@@ -552,6 +579,16 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+        <service
+            android:name="com.android.service.CallService"
+            android:permission="android.permission.BIND_INCALL_SERVICE">
+            <intent-filter>
+                <action android:name="android.telecom.InCallService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.telecom.IN_CALL_SERVICE_UI"
+                android:value="true" />
+        </service>
     </application>
 
 </manifest>

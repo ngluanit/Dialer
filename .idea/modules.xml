@@ -2,15 +2,15 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DialerCall.iml" filepath="$PROJECT_DIR$/.idea/modules/DialerCall.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/android-smsmms/DialerCall.android-smsmms.iml" filepath="$PROJECT_DIR$/.idea/modules/android-smsmms/DialerCall.android-smsmms.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.android.common/DialerCall.com.android.common.iml" filepath="$PROJECT_DIR$/.idea/modules/com.android.common/DialerCall.com.android.common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.android.contacts.common/DialerCall.com.android.contacts.common.iml" filepath="$PROJECT_DIR$/.idea/modules/com.android.contacts.common/DialerCall.com.android.contacts.common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.android.dialer/DialerCall.com.android.dialer.iml" filepath="$PROJECT_DIR$/.idea/modules/com.android.dialer/DialerCall.com.android.dialer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.android.phone.common/DialerCall.com.android.phone.common.iml" filepath="$PROJECT_DIR$/.idea/modules/com.android.phone.common/DialerCall.com.android.phone.common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/DialerCall.common.iml" filepath="$PROJECT_DIR$/.idea/modules/common/DialerCall.common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/data/DialerCall.data.iml" filepath="$PROJECT_DIR$/.idea/modules/data/DialerCall.data.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/DialerCall.domain.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/DialerCall.domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Dialer.iml" filepath="$PROJECT_DIR$/.idea/modules/Dialer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/android-smsmms/Dialer.android-smsmms.iml" filepath="$PROJECT_DIR$/.idea/modules/android-smsmms/Dialer.android-smsmms.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.android.common/Dialer.com.android.common.iml" filepath="$PROJECT_DIR$/.idea/modules/com.android.common/Dialer.com.android.common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.android.contacts.common/Dialer.com.android.contacts.common.iml" filepath="$PROJECT_DIR$/.idea/modules/com.android.contacts.common/Dialer.com.android.contacts.common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.android.dialer/Dialer.com.android.dialer.iml" filepath="$PROJECT_DIR$/.idea/modules/com.android.dialer/Dialer.com.android.dialer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.android.phone.common/Dialer.com.android.phone.common.iml" filepath="$PROJECT_DIR$/.idea/modules/com.android.phone.common/Dialer.com.android.phone.common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/Dialer.common.iml" filepath="$PROJECT_DIR$/.idea/modules/common/Dialer.common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/data/Dialer.data.iml" filepath="$PROJECT_DIR$/.idea/modules/data/Dialer.data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/Dialer.domain.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/Dialer.domain.iml" />
     </modules>
   </component>
 </project>

@@ -76,8 +76,8 @@ public abstract class PhoneFavoriteTileView extends ContactTileView {
             public boolean onLongClick(View v) {
                 final PhoneFavoriteTileView view = (PhoneFavoriteTileView) v;
                 // NOTE The drag shadow is handled in the ListView.
-                view.startDrag(EMPTY_CLIP_DATA, new View.DragShadowBuilder(),
-                        DRAG_PHONE_FAVORITE_TILE, 0);
+//                view.startDrag(EMPTY_CLIP_DATA, new View.DragShadowBuilder(),
+//                        DRAG_PHONE_FAVORITE_TILE, 0);
                 return true;
             }
         });

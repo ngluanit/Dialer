@@ -204,9 +204,9 @@ public class CallLogFragment extends Fragment implements CallLogQueryHandler.Lis
         mCallLogQueryHandler = new CallLogQueryHandler(activity, resolver, this, mLogLimit);
         mKeyguardManager =
                 (KeyguardManager) activity.getSystemService(Context.KEYGUARD_SERVICE);
-        resolver.registerContentObserver(CallLog.CONTENT_URI, true, mCallLogObserver);
-        resolver.registerContentObserver(ContactsContract.Contacts.CONTENT_URI, true,
-                mContactsObserver);
+//        resolver.registerContentObserver(CallLog.CONTENT_URI, true, mCallLogObserver);
+//        resolver.registerContentObserver(ContactsContract.Contacts.CONTENT_URI, true,
+//                mContactsObserver);
         setHasOptionsMenu(true);
     }
 

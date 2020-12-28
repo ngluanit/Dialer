@@ -29,6 +29,9 @@ android {
     viewBinding {
         enabled = true
     }
+    dataBinding {
+        enabled = true
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -150,6 +153,7 @@ dependencies {
     implementation project(":common")
     implementation project(':data')
     implementation project(':domain')
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
 
     withAnalyticsImplementation 'com.google.firebase:firebase-core:18.0.0'
     withAnalyticsImplementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'

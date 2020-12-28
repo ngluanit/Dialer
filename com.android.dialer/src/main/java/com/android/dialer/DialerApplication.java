@@ -33,10 +33,11 @@ public class DialerApplication extends Application {
     private static final String TAG = "DialerApplication";
 
     private static Context sContext;
-
+    private static DialerApplication instance;
     @Override
     public void onCreate() {
         sContext = this;
+        instance=this;
         Trace.beginSection(TAG + " onCreate");
         super.onCreate();
         Trace.beginSection(TAG + " ExtensionsFactory initialization");
@@ -48,7 +49,12 @@ public class DialerApplication extends Application {
 
         MobclickAgent.setDebugMode(true);
     }
-
+    public static DialerApplication getInstance() {
+        if (instance == null) {
+            instance = new DialerApplication();
+        }
+        return instance;
+    }
     @Nullable
     public static Context getContext() {
         return sContext;

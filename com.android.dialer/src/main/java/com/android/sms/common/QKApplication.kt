@@ -29,7 +29,6 @@ import androidx.core.provider.FontRequest
 import androidx.emoji.text.EmojiCompat
 import androidx.emoji.text.FontRequestEmojiCompatConfig
 import com.android.contacts.common.extensions.ExtensionsFactory
-import com.android.dialer.DialerApplication
 import com.android.dialer.R
 import com.android.dialer.database.FilteredNumberAsyncQueryHandler
 import com.android.dialer.filterednumber.BlockedNumbersAutoMigrator
@@ -91,13 +90,19 @@ class QKApplication : Application(), HasActivityInjector, HasBroadcastReceiverIn
 
     companion object {
         var sContext: Context? = null
+        private var instance: QKApplication? = null
         fun getContext(): Context? {
             return sContext
+        }
+        fun getInstance():QKApplication?{
+            return instance
         }
     }
 
     override fun onCreate() {
         sContext = this
+        instance = this
+
         super.onCreate()
         Trace.beginSection(TAG + " onCreate")
         Trace.beginSection(TAG + " ExtensionsFactory initialization")
@@ -152,8 +157,6 @@ class QKApplication : Application(), HasActivityInjector, HasBroadcastReceiverIn
     override fun serviceInjector(): AndroidInjector<Service> {
         return dispatchingServiceInjector
     }
-
-
 
 
 }
